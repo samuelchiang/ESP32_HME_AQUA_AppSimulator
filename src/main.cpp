@@ -7,8 +7,8 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-#define WIFI_SSID "DRtech"              // 請填入您的 WiFi 名稱
-#define WIFI_PASSWORD "Dr90098551"      // 請填入您的 WiFi 密碼
+#define WIFI_SSID "xxxxx"               // 請填入您的 WiFi 名稱
+#define WIFI_PASSWORD "xxxxx"           // 請填入您的 WiFi 密碼
 #define GRASSY_CORE_NAME "GrassyCore C" // Grassy Core 模擬設備的名稱
 #define SERVICE_UUID "F000C0E0-0451-4000-B000-000000000000" // 服務 UUID
 #define CHARACTERISTIC_UUID                                                    \
