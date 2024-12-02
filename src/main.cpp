@@ -14,7 +14,6 @@
 #define CHARACTERISTIC_UUID                                                    \
   "F000C0E1-0451-4000-B000-000000000000" // 特征值 UUID
 
-BLEClient *pClient;
 BLERemoteCharacteristic *pRemoteCharacteristic;
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 0, 60000); // 設定 NTP 客戶端
@@ -61,11 +60,9 @@ class MyAdvertisedDeviceCallbacks : public BLEAdvertisedDeviceCallbacks {
   void onResult(BLEAdvertisedDevice advertisedDevice) {
     if (advertisedDevice.getName() == GRASSY_CORE_NAME) {
       Serial.println("Found Grassy Core device, connecting...");
-      advertisedDevice.getScan()->stop();
-      pClient->connect(&advertisedDevice);
-      Serial.println("Connected to Grassy Core device");
 
-      BLERemoteService *pRemoteService = pClient->getService(SERVICE_UUID);
+      BLERemoteService *pRemoteService =
+          advertisedDevice.getServiceData(SERVICE_UUID);
       if (pRemoteService != nullptr) {
         pRemoteCharacteristic =
             pRemoteService->getCharacteristic(CHARACTERISTIC_UUID);
@@ -120,7 +117,6 @@ void setup() {
 
   // 初始化 BLE
   BLEDevice::init("");
-  pClient = BLEDevice::createClient();
   BLEScan *pBLEScan = BLEDevice::getScan();
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
   pBLEScan->setActiveScan(true);
